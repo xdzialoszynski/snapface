@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
+
 @Component({
   selector: 'app-face-snap',
   templateUrl: './face-snap.component.html',
@@ -18,5 +19,15 @@ export class FaceSnapComponent implements OnInit{
     this.createdDate = new Date();
     this.snaps = 0;
     this.imageUrl="https://images.pexels.com/photos/1049764/pexels-photo-1049764.jpeg?auto=compress&cs=tinysrgb&w=600";
+  }
+
+  onAddSnap() {
+    
+    if (this.snaps > 0) {
+      this.snaps--;
+    } else {
+      this.snaps++;
+    }
+   
   }
 }
