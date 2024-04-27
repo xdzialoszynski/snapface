@@ -39,7 +39,7 @@ export class FaceSnapsService {
     return this.faceSnaps;
   }
 
-  snapFaceSnapById(id: number) {
+  snapFaceSnapById(id: number): void {
     const faceSnap = this.faceSnaps.at(id - 1);
     if (faceSnap) {
       if (faceSnap.snaps > 0) {
@@ -47,6 +47,8 @@ export class FaceSnapsService {
       } else {
         faceSnap.snaps++;
       }
+    } else {
+      throw new Error('FaceSnap not found');
     }
   }
 }
