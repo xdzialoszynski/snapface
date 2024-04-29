@@ -11,6 +11,5 @@ export class LandingpageComponent {
 
   onGoToSnapFace(): void {
     this.router.navigateByUrl('facesnaps');
-    throw new Error('Method not implemented.');
   }
 }
