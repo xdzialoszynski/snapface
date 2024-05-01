@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FaceSnap } from '../models/face-snap.model';
 import { FaceSnapsService } from '../services/face-snaps.service';
-import { Subject, interval, take, takeUntil, tap } from 'rxjs';
+import { Subject, filter, interval, take, takeUntil, tap } from 'rxjs';
 
 @Component({
   selector: 'app-face-snap-list',
@@ -25,6 +25,7 @@ export class FaceSnapListComponent implements OnInit, OnDestroy {
     this.subject$ = new Subject();
     interval(1000).pipe(
       takeUntil(this.subject$),
+      filter(value=> value.toLocaleString.length>3),
       tap(console.log)
     ).subscribe();
   }
