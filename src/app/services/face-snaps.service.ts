@@ -3,6 +3,12 @@ import { FaceSnap } from '../models/face-snap.model';
 
 @Injectable({ providedIn: 'root' })
 export class FaceSnapsService {
+  getNextId(): number {
+    const nextId = this.faceSnaps[this.faceSnaps.length - 1].id + 1;
+    console.log(`Next id is:${nextId}`);
+    return nextId;
+  }
+
   faceSnaps: FaceSnap[] = [
     {
       id: 1,
@@ -60,5 +66,9 @@ export class FaceSnapsService {
       return faceSnap;
     }
     throw new Error('Method not implemented.');
+  }
+
+  addFaceSnap(facesnap: FaceSnap) {
+    this.faceSnaps = this.faceSnaps.concat(facesnap);
   }
 }
