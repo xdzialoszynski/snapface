@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 import { FaceSnap } from '../models/face-snap.model';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class FaceSnapsService {
@@ -9,40 +11,11 @@ export class FaceSnapsService {
     return nextId;
   }
 
-  faceSnaps: FaceSnap[] = [
-    {
-      id: 1,
-      createdDate: new Date(),
-      description: 'mon samiaou',
-      imageUrl:
-        'https://images.pexels.com/photos/1049764/pexels-photo-1049764.jpeg?auto=compress&cs=tinysrgb&w=600',
-      snaps: 7,
-      title: 'Césari',
-      location: "l'épanlerie",
-    },
-    {
-      id: 2,
-      createdDate: new Date(Date.parse('01 Jan 2021 00:00:00 GMT')),
-      description: 'le sa du sa',
-      imageUrl:
-        'https://images.pexels.com/photos/1049764/pexels-photo-1049764.jpeg?auto=compress&cs=tinysrgb&w=600',
-      snaps: 0,
-      title: 'Jules',
-      location: 'En Auvergne',
-    },
-    {
-      id: 3,
-      createdDate: new Date(Date.parse('12 Oct 1973 00:00:00 GMT')),
-      description: 'je suis le miaou du samiaou',
-      imageUrl:
-        'https://images.pexels.com/photos/1049764/pexels-photo-1049764.jpeg?auto=compress&cs=tinysrgb&w=600',
-      snaps: 0,
-      title: 'Xavier',
-    },
-  ];
+  faceSnaps: FaceSnap[] = [];
 
-  getAllFaceSnaps(): FaceSnap[] {
-    return this.faceSnaps;
+  getAllFaceSnaps(): Observable<FaceSnap[]> {
+    return this.httpClient.get<FaceSnap[]>('http://localhost:3000/facesnaps/');
+    // return this.faceSnaps;
   }
 
   snapFaceSnapById(id: number): void {
@@ -71,4 +44,6 @@ export class FaceSnapsService {
   addFaceSnap(facesnap: FaceSnap) {
     this.faceSnaps = this.faceSnaps.concat(facesnap);
   }
+
+  constructor(private httpClient: HttpClient) {}
 }

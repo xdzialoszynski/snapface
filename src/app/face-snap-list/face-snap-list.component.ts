@@ -1,7 +1,15 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FaceSnap } from '../models/face-snap.model';
 import { FaceSnapsService } from '../services/face-snaps.service';
-import { Subject, filter, interval, take, takeUntil, tap } from 'rxjs';
+import {
+  Observable,
+  Subject,
+  filter,
+  interval,
+  take,
+  takeUntil,
+  tap,
+} from 'rxjs';
 
 @Component({
   selector: 'app-face-snap-list',
@@ -13,7 +21,8 @@ export class FaceSnapListComponent implements OnInit, OnDestroy {
   mySnap!: FaceSnap;
   myOtherSnap!: FaceSnap;
   myLastSnap!: FaceSnap;
-  subject$!:Subject<boolean>;
+  subject$!: Subject<boolean>;
+  faceSnaps$!: Observable<FaceSnap[]>;
 
   constructor(private faceSnapsService: FaceSnapsService) {}
   ngOnDestroy(): void {
@@ -21,13 +30,16 @@ export class FaceSnapListComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.faceSnaps = this.faceSnapsService.getAllFaceSnaps();
-    this.subject$ = new Subject();
-    interval(1000).pipe(
-      takeUntil(this.subject$),
-      filter(value=> value.toLocaleString.length>3),
-      tap(console.log)
-    ).subscribe();
-  }
+    // this.faceSnaps = this.faceSnapsService.getAllFaceSnaps();
 
+    this.faceSnaps$ = this.faceSnapsService.getAllFaceSnaps();
+    this.subject$ = new Subject();
+    interval(1000)
+      .pipe(
+        takeUntil(this.subject$),
+        filter((value) => value.toLocaleString.length > 3),
+        tap(console.log)
+      )
+      .subscribe();
+  }
 }

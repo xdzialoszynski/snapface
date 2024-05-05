@@ -13,10 +13,25 @@ import { LandingpageComponent } from './landingpage/landingpage.component';
 import { SingleFaceSnapComponent } from './single-face-snap/single-face-snap.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NewFaceSnapComponent } from './new-face-snap/new-face-snap.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
-  declarations: [AppComponent, FaceSnapComponent, FaceSnapListComponent, HeaderComponent, LandingpageComponent, SingleFaceSnapComponent, NewFaceSnapComponent],
-  imports: [BrowserModule, AppRoutingModule, FormsModule, ReactiveFormsModule],
+  declarations: [
+    AppComponent,
+    FaceSnapComponent,
+    FaceSnapListComponent,
+    HeaderComponent,
+    LandingpageComponent,
+    SingleFaceSnapComponent,
+    NewFaceSnapComponent,
+  ],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    FormsModule,
+    ReactiveFormsModule,
+    HttpClientModule,
+  ],
   providers: [{ provide: LOCALE_ID, useValue: 'pl-PL' }],
   bootstrap: [AppComponent],
 })
