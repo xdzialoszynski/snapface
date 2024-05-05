@@ -9,9 +9,6 @@
   <a routerLink="/facesnaps">back</a>
   <p>Mise en ligne le : {{ faceSnap.createdDate | date : "fullDate" }}</p>
   <p>{{ faceSnap.description }}</p>
-  <p>{{ 165654654.2356 | number : "1.2-2" }}€</p>
-  <p>{{ 165654654 | currency : "EUR" : "code" }}</p>
-  <p>{{ 0.33 | percent : "1.2-2" }}€</p>
   <p>
     <button (click)="onAddSnap()">
       {{ faceSnap.snaps > 0 ? "Oops, unSnap" : "Oh Snap!" }}
