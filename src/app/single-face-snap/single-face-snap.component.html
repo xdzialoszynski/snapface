@@ -1,5 +1,6 @@
 <div
   class="face-snap-card"
+  *ngIf="faceSnap$ | async as faceSnap"
   [ngClass]="{
     snapped: faceSnap.snaps > 0
   }"

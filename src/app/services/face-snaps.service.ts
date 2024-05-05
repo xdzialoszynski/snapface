@@ -5,6 +5,8 @@ import { Observable } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class FaceSnapsService {
+  constructor(private httpClient: HttpClient) {}
+
   getNextId(): number {
     const nextId = this.faceSnaps[this.faceSnaps.length - 1].id + 1;
     console.log(`Next id is:${nextId}`);
@@ -31,19 +33,13 @@ export class FaceSnapsService {
     }
   }
 
-  getFaceSnapById(faceSnapId: number): FaceSnap {
-    const faceSnap: any = this.faceSnaps.find(
-      (element) => element.id == faceSnapId
+  getFaceSnapById(faceSnapId: number): Observable<FaceSnap> {
+    return this.httpClient.get<FaceSnap>(
+      `http://localhost:3000/facesnaps/${faceSnapId}`
     );
-    if (faceSnap) {
-      return faceSnap;
-    }
-    throw new Error('Method not implemented.');
   }
 
   addFaceSnap(facesnap: FaceSnap) {
     this.faceSnaps = this.faceSnaps.concat(facesnap);
   }
-
-  constructor(private httpClient: HttpClient) {}
 }
