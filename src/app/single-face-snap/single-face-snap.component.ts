@@ -22,7 +22,8 @@ export class SingleFaceSnapComponent implements OnInit {
 
   faceSnap$!: Observable<FaceSnap>;
 
-  onAddSnap() {
+  onAddSnap(faceSnapId: number) {
+    this.faceSnapsService.snapFaceSnapById(faceSnapId).subscribe();
     // this.faceSnapsService.snapFaceSnapById(this.faceSnap.id);
     // if (this.faceSnap.snaps > 0) {
     //   this.faceSnap.snaps--;

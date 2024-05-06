@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { FaceSnap } from '../models/face-snap.model';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, map, switchMap } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class FaceSnapsService {
@@ -20,17 +20,21 @@ export class FaceSnapsService {
     // return this.faceSnaps;
   }
 
-  snapFaceSnapById(id: number): void {
-    const faceSnap = this.faceSnaps.at(id - 1);
-    if (faceSnap) {
-      if (faceSnap.snaps > 0) {
-        faceSnap.snaps--;
-      } else {
-        faceSnap.snaps++;
-      }
-    } else {
-      throw new Error('FaceSnap not found');
-    }
+  snapFaceSnapById(id: number): Observable<FaceSnap> {
+    return this.getFaceSnapById(id).pipe(
+      map((faceSnap) => ({
+        ...faceSnap,
+        snaps:
+          faceSnap.snaps +
+          (faceSnap.snaps > 0 ? faceSnap.snaps-- : faceSnap.snaps++),
+      })),
+      switchMap((updatedFaceSnap) =>
+        this.httpClient.put<FaceSnap>(
+          `http://localhost:3000/facesnaps/${id}`,
+          updatedFaceSnap
+        )
+      )
+    );
   }
 
   getFaceSnapById(faceSnapId: number): Observable<FaceSnap> {
