@@ -1,7 +1,7 @@
-import { Injectable } from '@angular/core';
-import { FaceSnap } from '../models/face-snap.model';
 import { HttpClient } from '@angular/common/http';
-import { Observable, map, switchMap } from 'rxjs';
+import { Injectable } from '@angular/core';
+import { Observable, map, switchMap, tap } from 'rxjs';
+import { FaceSnap } from '../models/face-snap.model';
 
 @Injectable({ providedIn: 'root' })
 export class FaceSnapsService {
@@ -24,9 +24,7 @@ export class FaceSnapsService {
     return this.getFaceSnapById(id).pipe(
       map((faceSnap) => ({
         ...faceSnap,
-        snaps:
-          faceSnap.snaps +
-          (faceSnap.snaps > 0 ? faceSnap.snaps-- : faceSnap.snaps++),
+        snaps: faceSnap.snaps + (faceSnap.snaps > 0 ? -1 : 1),
       })),
       switchMap((updatedFaceSnap) =>
         this.httpClient.put<FaceSnap>(
@@ -45,5 +43,25 @@ export class FaceSnapsService {
 
   addFaceSnap(facesnap: FaceSnap) {
     this.faceSnaps = this.faceSnaps.concat(facesnap);
+  }
+
+  addNewFaceSnap(faceSnap: FaceSnap): Observable<FaceSnap> {
+    return this.httpClient
+      .get<FaceSnap[]>('http://localhost:3000/facesnaps')
+      .pipe(
+        // map((value) => value[value.length - 1].id + 1),
+        // tap(console.log)
+        map((faceSnaps) => [...faceSnaps].sort((a, b) => a.id - b.id)),
+        map((sortedFaceSnaps) => sortedFaceSnaps[sortedFaceSnaps.length - 1]),
+        tap(console.log),
+        switchMap((lastFaceSnap) => {
+          faceSnap.id = lastFaceSnap.id + 1;
+          console.log(faceSnap);
+          return this.httpClient.post<FaceSnap>(
+            'http://localhost:3000/facesnaps/',
+            faceSnap
+          );
+        })
+      );
   }
 }
