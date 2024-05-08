@@ -8,10 +8,9 @@ describe('FaceSnapComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [FaceSnapComponent]
-    })
-    .compileComponents();
-    
+      declarations: [FaceSnapComponent],
+    }).compileComponents();
+
     fixture = TestBed.createComponent(FaceSnapComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

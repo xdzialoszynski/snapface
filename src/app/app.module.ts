@@ -8,22 +8,12 @@ import * as pl from '@angular/common/locales/pl';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { FaceSnapListComponent } from './face-snap-list/face-snap-list.component';
-import { FaceSnapComponent } from './face-snap/face-snap.component';
-import { LandingpageComponent } from './landingpage/landingpage.component';
-import { NewFaceSnapComponent } from './new-face-snap/new-face-snap.component';
-import { SingleFaceSnapComponent } from './single-face-snap/single-face-snap.component';
 import { CoreModule } from './core/core.module';
+import { LandingpageComponent } from './landingpage/landingpage.component';
+import { FaceSnapsModule } from './face-snaps/face-snaps.module';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    FaceSnapComponent,
-    FaceSnapListComponent,
-    LandingpageComponent,
-    SingleFaceSnapComponent,
-    NewFaceSnapComponent,
-  ],
+  declarations: [AppComponent, LandingpageComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -31,6 +21,7 @@ import { CoreModule } from './core/core.module';
     ReactiveFormsModule,
     HttpClientModule,
     CoreModule,
+    FaceSnapsModule,
   ],
   bootstrap: [AppComponent],
 })
