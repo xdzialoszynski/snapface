@@ -64,4 +64,9 @@ export class FaceSnapsService {
         })
       );
   }
+
+  testArray(): void {
+    var num: number[];
+    num.fil;
+  }
 }
