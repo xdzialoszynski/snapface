@@ -9,11 +9,11 @@ import { Router } from '@angular/router';
 export class HeaderComponent {
   snapface!: string;
 
-  constructor(private router:Router) {
+  constructor(private router: Router) {
     this.snapface = 'snapface';
   }
 
-  onAddNewFaceSnap(){
-    this.router.navigateByUrl('/create');
+  onAddNewFaceSnap() {
+    this.router.navigateByUrl('/facesnaps/create');
   }
 }

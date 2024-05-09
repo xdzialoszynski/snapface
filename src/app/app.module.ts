@@ -7,18 +7,11 @@ import * as pl from '@angular/common/locales/pl';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { CoreModule } from './core/core.module';
-import { FaceSnapsModule } from './face-snaps/face-snaps.module';
 import { LandingPageModule } from './landing-page/landing-page.module';
 
 @NgModule({
   declarations: [AppComponent],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    CoreModule,
-    FaceSnapsModule,
-    LandingPageModule,
-  ],
+  imports: [BrowserModule, AppRoutingModule, CoreModule, LandingPageModule],
   bootstrap: [AppComponent],
 })
 export class AppModule {
